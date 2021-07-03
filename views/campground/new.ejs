@@ -1,26 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
+<% layout("layouts/boilerplates") %>
+    <div class="row">
+        <h1 class=" text-center"> Add Campground</h1>
+        <div class="col-6 offset-3">
+            <form action="/campground" method="POST">
+                <div class="mb-2">
+                    <label for="title" class="form-label">Title</label>
+                    <input type="text" class="form-control" name="campground[title]" id="title">
+                </div>
+                <div class="mb-2">
+                    <label for="loc" class="form-label ">Location</label>
+                    <input type="text" class="form-control" name="campground[location]" id="title">
+                </div>
+                <div class="mb-2">
+                    <label for="img" class="form-label ">Image Url</label>
+                    <input type="text" class="form-control" name="campground[image]" id="img">
+                </div>
+                <div class="mb-2">
+                    <label for="price">Price</label>
+                    <div class="input-group mt-1">
+                        <span class="input-group-text"> &#8377</span>
+                        <input type="text" name="campground[price]" class="form-control" placeholder="0.00">
+                    </div>
+                </div>
+                <div class="mb-2">
+                    <label for="img" class="form-label ">Description</label>
+                    <textarea type="text" class="form-control" name="campground[description]" id="img"></textarea>
+                </div>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New Camp</title>
-</head>
-
-<body>
-    <h1>Add A new camp Ground</h1>
-    <form action="/campground" method="POST">
-        <div>
-            <label for="title"> Campground Title :-</label>
-            <input type="text" name="campground[title]" placeholder="CampGround Name" id="title">
+                <div class="mt-2 offset-4">
+                    <button class="btn btn-success">submit</button>
+                </div>
+            </form>
         </div>
-        <div>
-            <label for="locality">Campground Location :-</label>
-            <input type="text" name="campground[location]" placeholder="location" id="loc">
-        </div>
-        <button>add campground</button>
-    </form>
-</body>
-
-</html>
+    </div>

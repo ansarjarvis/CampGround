@@ -1,32 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
+<% layout("layouts/boilerplates") %>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        <%= foundCamp.title %>
-    </title>
-</head>
+    <div class="row">
+        <div class="col-6 offset-3">
+            <div class="card">
+                <img src="<%= foundCamp.image %> " alt="">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <%= foundCamp.title %>
+                    </h5>
+                    <p class="card-text">
+                        <%= foundCamp.description %>
+                    </p>
+                    <ul class="list-group">
+                        <li class="list-group-item text-muted">
+                            <%= foundCamp.location %>
+                        </li>
+                        <li class="list-group-item"> &#8377
+                            <%= foundCamp.price %>
+                        </li>
+                    </ul>
+                    <a class="card-link btn btn-info mt-2" href="/campground/<%= foundCamp.id%>/edit "
+                        class="btn btn-info">edit</a>
+                    <form class="d-inline " action="/campground/<%= foundCamp.id %>?_method=DELETE" method="POST">
+                        <button class="btn btn-warning mt-2">DELETE</button>
+                    </form>
+                </div>
 
-<body>
-    <h1>
-        <%= foundCamp.title %>
-    </h1>
-    <ul>
-        <li>
-            <%= foundCamp.location %>
-        </li>
-    </ul>
-    <footer>
-        <a href="/campground">all campground</a>
-        <a href="/campground/<%= foundCamp.id %>/edit ">edit campground</a>
-        <form action="/campground/<%= foundCamp.id %>?_method=DELETE" method="POST">
-            <button>DELETE</button>
-        </form>
-    </footer>
-
-</body>
-
-</html>
+            </div>
+        </div>
+    </div>

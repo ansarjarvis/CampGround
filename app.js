@@ -3,6 +3,7 @@ const path = require("path");
 const mongoose = require("mongoose");
 const Campground = require("./model/compground");
 const methodOverride = require("method-override");
+const ejsMate = require("ejs-mate");
 
 mongoose.connect('mongodb://localhost:27017/camp-ground', { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -13,6 +14,8 @@ db.once('open', function () {
 });
 
 const app = express();
+
+app.engine("ejs", ejsMate);
 
 app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride("_method"));
