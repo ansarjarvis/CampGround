@@ -7,7 +7,11 @@ const flash = require("connect-flash");
 const expressError = require("./error-utilities/expressError");
 const campgroundRouter = require("./routes/campground");
 const reviewRouter = require("./routes/review");
+const userRouter = require("./routes/user")
+const User = require("./model/user")
 const path = require("path");
+const passport = require("passport")
+const localStrategy = require("passport-local")
 
 
 mongoose.connect('mongodb://localhost:27017/camp-ground', { useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false, useUnifiedTopology: true });
@@ -38,11 +42,20 @@ const sessionConfig = {
 app.use(session(sessionConfig));
 app.use(flash());
 
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new localStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser())
+
+
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 app.use((req, res, next) => {
+    res.locals.currentUser = req.user;
     res.locals.success = req.flash("success")
     res.locals.error = req.flash("error")
     next();
@@ -50,6 +63,7 @@ app.use((req, res, next) => {
 
 app.use("/campground", campgroundRouter);
 app.use("/campground/:id/review", reviewRouter);
+app.use("/", userRouter)
 
 app.get("/", (req, res) => {
     res.render("home");
