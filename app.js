@@ -55,6 +55,9 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 app.use((req, res, next) => {
+    if (!['/login', '/register', '/'].includes(req.originalUrl)) {
+        req.session.returnTo = req.originalUrl;
+    }
     res.locals.currentUser = req.user;
     res.locals.success = req.flash("success")
     res.locals.error = req.flash("error")
@@ -82,3 +85,4 @@ app.use((err, req, res, next) => {
 app.listen(3000, () => {
     console.log("listing to 3000")
 })
+

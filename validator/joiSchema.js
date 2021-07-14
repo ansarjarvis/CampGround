@@ -5,7 +5,7 @@ module.exports.campValidSchema = joi.object({
     campground: joi.object({
         title: joi.string().required(),
         location: joi.string().required(),
-        price: joi.number().min(1).required(),
+        price: joi.number().required().positive(),
         image: joi.string().required(),
         description: joi.string().required()
     }).required()
