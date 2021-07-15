@@ -10,11 +10,15 @@
                     <h5>
                         <%= campground.title %>
                     </h5>
+
                     <p>
                         <%= campground.description %>
                     </p>
+                    <h6 class="card-subtitle text-muted mb-3">
+                        <%= campground.location %>
+                    </h6>
                     <a class="card-link btn btn-primary" href="/campground/<%= campground.id %> ">
-                        <%= campground.title %>
+                        View <%= campground.title %>
                     </a>
                 </div>
             </div>

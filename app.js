@@ -1,4 +1,5 @@
 const express = require("express");
+const app = express();
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
@@ -22,9 +23,7 @@ db.once('open', function () {
 });
 
 
-const app = express();
 app.engine("ejs", ejsMate);
-
 
 app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride("_method"));
@@ -45,7 +44,6 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new localStrategy(User.authenticate()));
-
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser())
 
