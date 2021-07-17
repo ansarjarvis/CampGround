@@ -65,9 +65,9 @@ const reviewValidator = (req, res, next) => {
 }
 
 module.exports = {
-    isLoggedIn: isLoggedIn,
-    isAuthor: isAuthor,
-    isReviewAuthor: isReviewAuthor,
-    campgroundValidator: campgroundValidator,
-    reviewValidator: reviewValidator
+    isLoggedIn,
+    isAuthor,
+    isReviewAuthor,
+    campgroundValidator,
+    reviewValidator
 }
