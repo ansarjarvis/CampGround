@@ -17,6 +17,8 @@ const User = require("./model/user")
 const path = require("path");
 const passport = require("passport")
 const localStrategy = require("passport-local")
+const mongoSanitize = require('express-mongo-sanitize');
+const helmet = require("helmet");
 
 
 mongoose.connect('mongodb://localhost:27017/camp-ground', { useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false, useUnifiedTopology: true });
@@ -38,12 +40,15 @@ const sessionConfig = {
     saveUninitialized: false,
     cookie: {
         HttpOnly: true,
+        // secure:true;
         expires: Date.now + 7 * 24 * 60 * 60 * 1000,
         maxAge: 7 * 24 * 60 * 60 * 1000,
     }
 }
 app.use(session(sessionConfig));
 app.use(flash());
+app.use(mongoSanitize());
+app.use(helmet({ contentSecurityPolicy: false }));
 
 app.use(passport.initialize());
 app.use(passport.session());
