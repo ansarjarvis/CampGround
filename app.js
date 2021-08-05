@@ -2,8 +2,6 @@ if (process.env.NODE_ENV != "production") {
     require("dotenv").config();
 }
 
-// k1R10ZiaamIHWwTE
-
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -23,9 +21,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const helmet = require("helmet");
 const MongoStore = require('connect-mongo');
 
-
 const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/camp-ground';
-// 'mongodb://localhost:27017/camp-ground'
 mongoose.connect(dbUrl, { useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false, useUnifiedTopology: true });
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -40,20 +36,15 @@ app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")))
 
-const secret = process.env.SECRET || "thisshouldbeabettersecret";
-
+const secret = process.env.SECRET;
 const store = MongoStore.create({
     mongoUrl: dbUrl,
     secret: secret,
     touchAfter: 24 * 60 * 60
 })
-
-store.on("error", function (e) {
-    console.log("session error")
-})
-
 const sessionConfig = {
     store: store,
+    name: "session",
     secret: secret,
     resave: false,
     saveUninitialized: false,
@@ -110,6 +101,6 @@ app.use((err, req, res, next) => {
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
-    console.log(`listing at ${port}`)
+    console.log(`listning at ${port}`)
 })
 

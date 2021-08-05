@@ -1,12 +1,9 @@
-require("dotenv").config();
-
 const mongoose = require("mongoose");
 const Campground = require("../model/compground");
 const cities = require("./city");
 const { places, descriptors } = require("./seed-helper");
 
-const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/camp-ground';
-mongoose.connect(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb://localhost:27017/camp-ground', { useNewUrlParser: true, useUnifiedTopology: true });
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -20,7 +17,7 @@ const sample = function (array) {
 
 const seedDb = async () => {
     await Campground.deleteMany({})
-    for (let i = 0; i < 200; ++i) {
+    for (let i = 0; i < 250; ++i) {
         const random1000 = Math.floor(Math.random() * 1000) + 1;
         const price = Math.floor(Math.random() * 1500) + 600;
         const camp = new Campground({
@@ -40,7 +37,6 @@ const seedDb = async () => {
                 {
                     url: 'https://res.cloudinary.com/dfpcslugq/image/upload/v1626508931/CampGround/omc0aq6fwua2rdz0exz3.jpg',
                     filename: 'CampGround/omc0aq6fwua2rdz0exz3'
-
                 },
                 {
                     url: 'https://res.cloudinary.com/dfpcslugq/image/upload/v1628141052/CampGround/gc49o3t7fc0q7nsz7s5o.jpg',
@@ -59,3 +55,4 @@ const seedDb = async () => {
 seedDb().then(() => {
     mongoose.connection.close;
 })
+
