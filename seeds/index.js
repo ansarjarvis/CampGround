@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const mongoose = require("mongoose");
 const Campground = require("../model/compground");
 const cities = require("./city");
@@ -18,7 +20,7 @@ const sample = function (array) {
 
 const seedDb = async () => {
     await Campground.deleteMany({})
-    for (let i = 0; i < 250; ++i) {
+    for (let i = 0; i < 200; ++i) {
         const random1000 = Math.floor(Math.random() * 1000) + 1;
         const price = Math.floor(Math.random() * 1500) + 600;
         const camp = new Campground({
