@@ -2,6 +2,8 @@ if (process.env.NODE_ENV != "production") {
     require("dotenv").config();
 }
 
+// k1R10ZiaamIHWwTE
+
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -19,9 +21,12 @@ const passport = require("passport")
 const localStrategy = require("passport-local")
 const mongoSanitize = require('express-mongo-sanitize');
 const helmet = require("helmet");
+const MongoStore = require('connect-mongo');
 
 
-mongoose.connect('mongodb://localhost:27017/camp-ground', { useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false, useUnifiedTopology: true });
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/camp-ground';
+// 'mongodb://localhost:27017/camp-ground'
+mongoose.connect(dbUrl, { useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false, useUnifiedTopology: true });
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {
@@ -34,8 +39,22 @@ app.engine("ejs", ejsMate);
 app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")))
+
+const secret = process.env.SECRET || "thisshouldbeabettersecret";
+
+const store = MongoStore.create({
+    mongoUrl: dbUrl,
+    secret: secret,
+    touchAfter: 24 * 60 * 60
+})
+
+store.on("error", function (e) {
+    console.log("session error")
+})
+
 const sessionConfig = {
-    secret: "thisshouldbeabettersecret",
+    store: store,
+    secret: secret,
     resave: false,
     saveUninitialized: false,
     cookie: {

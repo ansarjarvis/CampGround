@@ -35,16 +35,17 @@ const seedDb = async () => {
             },
             images: [
                 {
-                    url: 'https://res.cloudinary.com/dfpcslugq/image/upload/v1626509955/CampGround/sllxc7yterlfc2f3qvyp.jpg',
-                    filename: 'CampGround/sllxc7yterlfc2f3qvyp'
+                    url: 'https://res.cloudinary.com/dfpcslugq/image/upload/v1626508931/CampGround/omc0aq6fwua2rdz0exz3.jpg',
+                    filename: 'CampGround/omc0aq6fwua2rdz0exz3'
+
                 },
                 {
-                    url: 'https://res.cloudinary.com/dfpcslugq/image/upload/v1626509960/CampGround/bzpbenovnmxn81k1r80g.jpg',
-                    filename: 'CampGround/bzpbenovnmxn81k1r80g'
+                    url: 'https://res.cloudinary.com/dfpcslugq/image/upload/v1628141052/CampGround/gc49o3t7fc0q7nsz7s5o.jpg',
+                    filename: 'CampGround/gc49o3t7fc0q7nsz7s5o'
                 },
                 {
-                    url: 'https://res.cloudinary.com/dfpcslugq/image/upload/v1626509968/CampGround/snrseqhmfrw6of5h6bxe.jpg',
-                    filename: 'CampGround/snrseqhmfrw6of5h6bxe'
+                    url: 'https://res.cloudinary.com/dfpcslugq/image/upload/v1628141061/CampGround/zvx69jrq1xvb5nmjvxev.jpg',
+                    filename: 'CampGround/zvx69jrq1xvb5nmjvxev'
                 }
             ]
 
@@ -55,4 +56,3 @@ const seedDb = async () => {
 seedDb().then(() => {
     mongoose.connection.close;
 })
-
