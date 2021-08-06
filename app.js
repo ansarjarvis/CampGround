@@ -1,4 +1,4 @@
-if (process.env.NODE_ENV != "production") {
+if (process.env.NODE_ENV !== "production") {
     require("dotenv").config();
 }
 
@@ -21,7 +21,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const helmet = require("helmet");
 const MongoStore = require('connect-mongo');
 
-const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/camp-ground';
+const dbUrl = 'mongodb://localhost:27017/camp-ground' || process.env.DB_URL;
 mongoose.connect(dbUrl, { useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false, useUnifiedTopology: true });
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -36,7 +36,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")))
 
-const secret = process.env.SECRET;
+const secret = process.env.SECRET || "thisismytopsecret";
 const store = MongoStore.create({
     mongoUrl: dbUrl,
     secret: secret,
@@ -47,7 +47,7 @@ const sessionConfig = {
     name: "session",
     secret: secret,
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true,
     cookie: {
         HttpOnly: true,
         // secure:true;
@@ -72,7 +72,7 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 app.use((req, res, next) => {
-    if (!['/login', '/register', '/'].includes(req.originalUrl)) {
+    if (!['/login', '/register'].includes(req.originalUrl) && req.query._method !== ['DELETE', 'PUT']) {
         req.session.returnTo = req.originalUrl;
     }
     res.locals.currentUser = req.user;
